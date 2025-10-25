@@ -11,6 +11,7 @@ import { stranger_tune } from './tunes';
 import console_monkey_patch from './console-monkey-patch'; //getD3Data
 import ControlPanel from './components/ControlPanel';
 import PreprocessorEditor from './components/PreprocessorEditor';
+import RadioControls from './components/RadioControls';
 
 
 let globalEditor = null;
@@ -21,8 +22,11 @@ const handleD3Data = (event) => {
 
 export default function App() {
 
-// State for Preprocessor Text Area
+// State for Preprocessor Text Area.
 const [preprocessorText, setPreprocessorText] = useState(stranger_tune);
+
+// State for Radio Button Selection.
+const [radioSelection, setRadioSelection] = useState('on');
 
 
 function Proc() {
@@ -44,7 +48,7 @@ function ProcAndPlay() {
 
 function ProcessText(match, ...args) {
     let replace = ""
-    if (document.getElementById('flexRadioDefault2').checked) {
+    if (radioSelection === "hush") {
         replace = "_"
     }
     return replace
@@ -137,20 +141,12 @@ return (
                         <div id="editor" />
                         <div id="output" />
                     </div>
-                    <div className="col-md-4">
-                        <div className="form-check">
-                            <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" onChange={ProcAndPlay} defaultChecked />
-                            <label className="form-check-label" htmlFor="flexRadioDefault1">
-                                p1: ON
-                            </label>
-                        </div>
-                        <div className="form-check">
-                            <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" onChange={ProcAndPlay} />
-                            <label className="form-check-label" htmlFor="flexRadioDefault2">
-                                p1: HUSH
-                            </label>
-                        </div>
-                    </div>
+                    
+                    <RadioControls 
+                        selectedOption={radioSelection} 
+                        onRadioChange={setRadioSelection} 
+                    />
+
                 </div>
             </div>
             <canvas id="roll"></canvas>
