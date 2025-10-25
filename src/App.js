@@ -12,6 +12,7 @@ import console_monkey_patch from './console-monkey-patch'; //getD3Data
 import ControlPanel from './components/ControlPanel';
 import PreprocessorEditor from './components/PreprocessorEditor';
 import RadioControls from './components/RadioControls';
+import SpeedVisualization from './components/SpeedVisualization';
 
 
 let globalEditor = null;
@@ -163,6 +164,8 @@ return (
                         selectedOption={radioSelection} 
                         onRadioChange={handleRadioChange} 
                     />
+                    
+                    <SpeedVisualization speed={radioSelection} />
 
                 </div>
             </div>
