@@ -15,7 +15,7 @@ note(\`
   .lpf(800)
   .decay(0.12)
   .pan(0.3)
-  .gain("<p1_Radio>1.0")
+  .gain(1.0)
   .delay(sine.range(0,0.75).slow(10))
   .mask("<0!4 1!500>")
 ,
@@ -95,4 +95,4 @@ note(\`
   .mask("<0!20 1!12>")
 ,
 
-).cpm(cpm)`;
+).cpm(cpm * <p1_Speed>)`;

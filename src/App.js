@@ -26,23 +26,30 @@ export default function App() {
 const [preprocessorText, setPreprocessorText] = useState(stranger_tune);
 
 // State for Radio Button Selection.
-const [radioSelection, setRadioSelection] = useState('on');
+const [radioSelection, setRadioSelection] = useState('normal');
 
 
 function Proc() {
     let proc_text = preprocessorText; 
-    let proc_text_replaced = proc_text.replaceAll('<p1_Radio>', ProcessText);
+    let proc_text_replaced = proc_text.replaceAll('<p1_Speed>', ProcessText);
     ProcessText(proc_text);
     globalEditor.setCode(proc_text_replaced)
 }
 
 
 function ProcessText(match, ...args) {
-    let replace = ""
-    if (radioSelection === "hush") {
-        replace = "_"
+    return getSpeedValue(radioSelection);
+}
+
+function getSpeedValue(speed) {
+    if (speed === "fast") {
+        return "2";      // Double the base tempo
+    } else if (speed === "normal") {
+        return "1";      // Normal tempo
+    } else if (speed === "slow") {
+        return "0.5";    // Half the tempo 
     }
-    return replace
+    return "1"; // Default to normal
 }
 
 // Functions for Control Panel.
@@ -72,13 +79,13 @@ function handleProcessAndPlay() {
 function handleRadioChange(value) {
     setRadioSelection(value);
     
-    // Wait the state update.
-    setTimeout(() => {
-        if (globalEditor != null) {
-            Proc();
-            globalEditor.evaluate();
-        }
-    }, 100);
+    if (globalEditor != null) {
+        let proc_text = preprocessorText;
+        let replace = getSpeedValue(value);
+        let proc_text_replaced = proc_text.replaceAll('<p1_Speed>', replace);
+        globalEditor.setCode(proc_text_replaced);
+        globalEditor.evaluate();
+    }
 }
 
 const hasRun = useRef(false);
