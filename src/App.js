@@ -1,7 +1,7 @@
 import './App.css';
 import { useEffect, useRef } from "react";
 import { StrudelMirror } from '@strudel/codemirror';
-import { evalScope } from '@strudel/core';
+import { evalScope, func } from '@strudel/core';
 import { drawPianoroll } from '@strudel/draw';
 import { initAudioOnFirstClick } from '@strudel/webaudio';
 import { transpiler } from '@strudel/transpiler';
@@ -9,31 +9,13 @@ import { getAudioContext, webaudioOutput, registerSynthSounds } from '@strudel/w
 import { registerSoundfonts } from '@strudel/soundfonts';
 import { stranger_tune } from './tunes';
 import console_monkey_patch, { getD3Data } from './console-monkey-patch';
+import ControlPanel from './components/ControlPanel';
 
 let globalEditor = null;
 
 const handleD3Data = (event) => {
     console.log(event.detail);
 };
-
-export function SetupButtons() {
-
-    document.getElementById('play').addEventListener('click', () => globalEditor.evaluate());
-    document.getElementById('stop').addEventListener('click', () => globalEditor.stop());
-    document.getElementById('process').addEventListener('click', () => {
-        Proc()
-    }
-    )
-    document.getElementById('process_play').addEventListener('click', () => {
-        if (globalEditor != null) {
-            Proc()
-            globalEditor.evaluate()
-        }
-    }
-    )
-}
-
-
 
 export function ProcAndPlay() {
     if (globalEditor != null && globalEditor.repl.state.started == true) {
@@ -61,7 +43,24 @@ export function ProcessText(match, ...args) {
     return replace
 }
 
-export default function StrudelDemo() {
+export default function App() {
+
+// Functions for Control Panel.
+function handlePlay() {
+    globalEditor.evaluate();
+};
+function handleStop() {
+    globalEditor.stop();
+};
+function handleProcess() {
+    Proc();
+};
+function handleProcessAndPlay() {
+    if (globalEditor != null) {
+        Proc();
+        globalEditor.evaluate();
+    }   
+};
 
 const hasRun = useRef(false);
 
@@ -99,7 +98,6 @@ useEffect(() => {
             });
             
         document.getElementById('proc').value = stranger_tune
-        SetupButtons()
         Proc()
     }
 
@@ -117,16 +115,13 @@ return (
                         <label htmlFor="exampleFormControlTextarea1" className="form-label">Text to preprocess:</label>
                         <textarea className="form-control" rows="15" id="proc" ></textarea>
                     </div>
-                    <div className="col-md-4">
-
-                        <nav>
-                            <button id="process" className="btn btn-outline-primary">Preprocess</button>
-                            <button id="process_play" className="btn btn-outline-primary">Proc & Play</button>
-                            <br />
-                            <button id="play" className="btn btn-outline-primary">Play</button>
-                            <button id="stop" className="btn btn-outline-primary">Stop</button>
-                        </nav>
-                    </div>
+                    
+                    <ControlPanel 
+                        onPlay={handlePlay} 
+                        onStop={handleStop}  
+                        onProcess={handleProcess} 
+                        onProcessAndPlay={handleProcessAndPlay} 
+                        />
                 </div>
                 <div className="row">
                     <div className="col-md-8" style={{ maxHeight: '50vh', overflowY: 'auto' }}>
