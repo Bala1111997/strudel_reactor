@@ -1,15 +1,17 @@
 import './App.css';
-import { useEffect, useRef } from "react";
+import React, {useState, useEffect, useRef } from "react";
 import { StrudelMirror } from '@strudel/codemirror';
-import { evalScope, func } from '@strudel/core';
+import { evalScope } from '@strudel/core'; //func
 import { drawPianoroll } from '@strudel/draw';
 import { initAudioOnFirstClick } from '@strudel/webaudio';
 import { transpiler } from '@strudel/transpiler';
 import { getAudioContext, webaudioOutput, registerSynthSounds } from '@strudel/webaudio';
 import { registerSoundfonts } from '@strudel/soundfonts';
 import { stranger_tune } from './tunes';
-import console_monkey_patch, { getD3Data } from './console-monkey-patch';
+import console_monkey_patch from './console-monkey-patch'; //getD3Data
 import ControlPanel from './components/ControlPanel';
+import PreprocessorEditor from './components/PreprocessorEditor';
+
 
 let globalEditor = null;
 
@@ -17,33 +19,36 @@ const handleD3Data = (event) => {
     console.log(event.detail);
 };
 
-export function ProcAndPlay() {
-    if (globalEditor != null && globalEditor.repl.state.started == true) {
+export default function App() {
+
+// State for Preprocessor Text Area
+const [preprocessorText, setPreprocessorText] = useState(stranger_tune);
+
+
+function Proc() {
+    let proc_text = preprocessorText; 
+    let proc_text_replaced = proc_text.replaceAll('<p1_Radio>', ProcessText);
+    ProcessText(proc_text);
+    globalEditor.setCode(proc_text_replaced)
+}
+
+
+function ProcAndPlay() {
+    if (globalEditor != null && globalEditor.repl.state.started === true) {
         console.log(globalEditor)
         Proc()
         globalEditor.evaluate();
     }
 }
 
-export function Proc() {
 
-    let proc_text = document.getElementById('proc').value
-    let proc_text_replaced = proc_text.replaceAll('<p1_Radio>', ProcessText);
-    ProcessText(proc_text);
-    globalEditor.setCode(proc_text_replaced)
-}
-
-export function ProcessText(match, ...args) {
-
+function ProcessText(match, ...args) {
     let replace = ""
     if (document.getElementById('flexRadioDefault2').checked) {
         replace = "_"
     }
-
     return replace
 }
-
-export default function App() {
 
 // Functions for Control Panel.
 function handlePlay() {
@@ -97,8 +102,10 @@ useEffect(() => {
                 },
             });
             
-        document.getElementById('proc').value = stranger_tune
-        Proc()
+        // 
+        if (globalEditor) {
+            globalEditor.setCode(stranger_tune);
+        }
     }
 
 }, []);
@@ -111,17 +118,19 @@ return (
 
             <div className="container-fluid">
                 <div className="row">
-                    <div className="col-md-8" style={{ maxHeight: '50vh', overflowY: 'auto' }}>
-                        <label htmlFor="exampleFormControlTextarea1" className="form-label">Text to preprocess:</label>
-                        <textarea className="form-control" rows="15" id="proc" ></textarea>
-                    </div>
+                    
+                    <PreprocessorEditor 
+                        value={preprocessorText}
+                        onChange={setPreprocessorText}
+                    />
                     
                     <ControlPanel 
                         onPlay={handlePlay} 
                         onStop={handleStop}  
                         onProcess={handleProcess} 
                         onProcessAndPlay={handleProcessAndPlay} 
-                        />
+                    />
+                
                 </div>
                 <div className="row">
                     <div className="col-md-8" style={{ maxHeight: '50vh', overflowY: 'auto' }}>
