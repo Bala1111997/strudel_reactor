@@ -37,15 +37,6 @@ function Proc() {
 }
 
 
-function ProcAndPlay() {
-    if (globalEditor != null && globalEditor.repl.state.started === true) {
-        console.log(globalEditor)
-        Proc()
-        globalEditor.evaluate();
-    }
-}
-
-
 function ProcessText(match, ...args) {
     let replace = ""
     if (radioSelection === "hush") {
@@ -56,13 +47,19 @@ function ProcessText(match, ...args) {
 
 // Functions for Control Panel.
 function handlePlay() {
-    globalEditor.evaluate();
+    if (globalEditor != null) {
+        globalEditor.evaluate();
+    }
 };
 function handleStop() {
-    globalEditor.stop();
+    if (globalEditor != null) {
+        globalEditor.stop();
+    }
 };
 function handleProcess() {
-    Proc();
+    if (globalEditor != null) {
+        Proc();
+    }
 };
 function handleProcessAndPlay() {
     if (globalEditor != null) {
@@ -70,6 +67,19 @@ function handleProcessAndPlay() {
         globalEditor.evaluate();
     }   
 };
+
+
+function handleRadioChange(value) {
+    setRadioSelection(value);
+    
+    // Wait the state update.
+    setTimeout(() => {
+        if (globalEditor != null) {
+            Proc();
+            globalEditor.evaluate();
+        }
+    }, 100);
+}
 
 const hasRun = useRef(false);
 
@@ -117,7 +127,7 @@ useEffect(() => {
 
 return (
     <div>
-        <h2>Strudel Demo</h2>
+        <h2>🎸Strudel Music Player🎸</h2>
         <main>
 
             <div className="container-fluid">
@@ -144,7 +154,7 @@ return (
                     
                     <RadioControls 
                         selectedOption={radioSelection} 
-                        onRadioChange={setRadioSelection} 
+                        onRadioChange={handleRadioChange} 
                     />
 
                 </div>

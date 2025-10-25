@@ -15,7 +15,7 @@ note(\`
   .lpf(800)
   .decay(0.12)
   .pan(0.3)
-  .gain(1.0)
+  .gain("<p1_Radio>1.0")
   .delay(sine.range(0,0.75).slow(10))
   .mask("<0!4 1!500>")
 ,
@@ -39,7 +39,7 @@ note(\`
 [f4@0.5 g4@0.5 bb4 ab4 g4]
 \`)
   .slow(4)
-  .sound("piano")
+  .sound("triangle")
   .gain(0.5)
   .clip(3)
   .postgain(sine.range(1,0).slow(24))
@@ -52,28 +52,32 @@ note(\`
 [db1 ~ ~ db1 ~ ~ db1 ~ ~ eb1 ~ ~ eb1 ~ ~ eb1]
 \`)
   .slow(2)
-  .sound("gm_synth_bass_2:0")
-  .lpf(800)
+  .sound("square")
+  .lpf(200)
   .pan(0.4)
   .release(0.25)
   .room(0.2)
+  .gain(0.3)
 ,
   
-sound("bd!4")
-  .bank("RolandTR909")
-  .gain(0.35)
+note("c1!4")
+  .sound("sawtooth")
+  .lpf(120)
+  .gain(0.6)
   .room(0.15)
 ,
 
-sound("~ hh ~ [hh hh] ~ hh ~ hh")
-  .bank("RolandTR909")
-  .gain(0.08)
+note("~ c4 ~ [c4 c4] ~ c4 ~ c4")
+  .sound("square")
+  .hpf(800)
+  .gain(0.2)
   .crush(5)
 ,
 
-sound("~ sd ~ [sd ~ ~ sd]")
-  .bank("RolandTR909")
-  .gain("0.15 0.15 0.15 0.15 0.09")
+note("~ c2 ~ [c2 ~ ~ c2]")
+  .sound("square")
+  .lpf(300)
+  .gain(0.3)
 ,
 
 note(\`
@@ -83,10 +87,10 @@ note(\`
 [~ eb4 c4 bb3@2 g4@2 f4]
 \`)
   .slow(4)
-  .sound("gm_electric_guitar_clean:4")
+  .sound("square")
   .lpf(2000)
   .pan(0.65)
-  .gain(1)
+  .gain(0.4)
   .phaser(4).phasersweep(2000)
   .mask("<0!20 1!12>")
 ,
