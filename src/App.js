@@ -13,6 +13,7 @@ import ControlPanel from './components/ControlPanel';
 import PreprocessorEditor from './components/PreprocessorEditor';
 import RadioControls from './components/RadioControls';
 import SpeedVisualization from './components/SpeedVisualization';
+import StrudelEditor from './components/StrudelEditor';
 
 
 let globalEditor = null;
@@ -154,11 +155,12 @@ return (
                     />
                 
                 </div>
-                <div className="row">
-                    <div className="col-md-8" style={{ maxHeight: '50vh', overflowY: 'auto' }}>
-                        <div id="editor" />
-                        <div id="output" />
-                    </div>
+                <div className="row mt-4">
+                    <StrudelEditor 
+                        editorRef={globalEditor}
+                        onEditorReady={(container) => {
+                        }}
+                    />
                     
                     <RadioControls 
                         selectedOption={radioSelection} 
