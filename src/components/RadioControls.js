@@ -2,12 +2,12 @@ import React from "react";
 
 function RadioControls({ selectedOption, onRadioChange }) {
     return (
-        <div className="col-md-3">
+        <div className="col-md-2">
             <div className="card shadow-lg border-0">
                 <div className="card-header bg-gradient bg-dark text-white text-center">
                     <h5 className="mb-0">
                         <i className="fas fa-tachometer-alt me-2"></i>
-                        ⚡️ Speed Control
+                    ⚡️ Speed Control
                     </h5>
                 </div>
                 <div className="card-body p-3">
@@ -24,13 +24,14 @@ function RadioControls({ selectedOption, onRadioChange }) {
                                 onChange={(e) => onRadioChange(e.target.value)}
                             />
                             <label 
-                                className={`btn btn-outline-danger w-100 fw-bold shadow-sm ${
+                                className={`btn btn-outline-danger w-100 fw-normal shadow-sm ${
                                     selectedOption === 'fast' ? 'active' : ''
                                 }`} 
                                 htmlFor="speed-fast"
+                                style={{fontSize: "0.875rem", padding: "0.5rem 0.75rem"}}
                             >
-                                <i className="fas fa-bolt me-2"></i>
-                                Fast Speed
+                                <i className="fas fa-bolt me-1"></i>
+                                Fast
                             </label>
                         </div>
                         
@@ -46,13 +47,14 @@ function RadioControls({ selectedOption, onRadioChange }) {
                                 onChange={(e) => onRadioChange(e.target.value)}
                             />
                             <label 
-                                className={`btn btn-outline-success w-100 fw-bold shadow-sm ${
+                                className={`btn btn-outline-success w-100 fw-normal shadow-sm ${
                                     selectedOption === 'normal' ? 'active' : ''
                                 }`} 
                                 htmlFor="speed-normal"
+                                style={{fontSize: "0.875rem", padding: "0.5rem 0.75rem"}}
                             >
-                                <i className="fas fa-play me-2"></i>
-                                Normal Speed
+                                <i className="fas fa-play me-1"></i>
+                                Normal
                             </label>
                         </div>
                         
@@ -68,13 +70,14 @@ function RadioControls({ selectedOption, onRadioChange }) {
                                 onChange={(e) => onRadioChange(e.target.value)}
                             />
                             <label 
-                                className={`btn btn-outline-info w-100 fw-bold shadow-sm ${
+                                className={`btn btn-outline-info w-100 fw-normal shadow-sm ${
                                     selectedOption === 'slow' ? 'active' : ''
                                 }`} 
                                 htmlFor="speed-slow"
+                                style={{fontSize: "0.875rem", padding: "0.5rem 0.75rem"}}
                             >
-                                <i className="fas fa-turtle me-2"></i>
-                                Slow Speed
+                                <i className="fas fa-turtle me-1"></i>
+                                Slow
                             </label>
                         </div>
                     </div>
