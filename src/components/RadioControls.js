@@ -4,10 +4,10 @@ function RadioControls({ selectedOption, onRadioChange }) {
     return (
         <div>
             <div className="card shadow-lg border-0">
-                <div className="card-header bg-gradient bg-dark text-white text-center">
-                    <h5 className="mb-0">
+                <div className="card-header">
+                    <h5 className="mb-0 text-danger">
                         <i className="fas fa-tachometer-alt me-2"></i>
-                    ⚡️ Speed Control
+                    Speed Control
                     </h5>
                 </div>
                 <div className="card-body p-3">
@@ -24,7 +24,7 @@ function RadioControls({ selectedOption, onRadioChange }) {
                                 onChange={(e) => onRadioChange(e.target.value)}
                             />
                             <label 
-                                className={`btn btn-outline-danger w-100 fw-normal shadow-sm ${
+                                className={`btn btn-outline-info w-100 fw-normal shadow-sm ${
                                     selectedOption === 'fast' ? 'active' : ''
                                 }`} 
                                 htmlFor="speed-fast"
@@ -47,7 +47,7 @@ function RadioControls({ selectedOption, onRadioChange }) {
                                 onChange={(e) => onRadioChange(e.target.value)}
                             />
                             <label 
-                                className={`btn btn-outline-success w-100 fw-normal shadow-sm ${
+                                className={`btn btn-outline-info w-100 fw-normal shadow-sm ${
                                     selectedOption === 'normal' ? 'active' : ''
                                 }`} 
                                 htmlFor="speed-normal"

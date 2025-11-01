@@ -14,7 +14,7 @@ import RadioControls from './components/RadioControls';
 import SpeedVisualization from './components/SpeedVisualization';
 import StrudelEditor from './components/StrudelEditor';
 import Navbar from './components/Navbar';
-
+import Footer from './components/Footer';
 
 let globalEditor = null;
 
@@ -129,7 +129,7 @@ return (
         <Navbar />
         <main className="container-fluid py-4 ">
             <div className="row g-4">
-                <div className="col-md-3" style={{marginTop: "4.5rem"}}>
+                <div className="col-md-3" style={{marginTop: "4rem"}}>
                     <div className="d-flex flex-column gap-4">
                         <ControlPanel 
                             onPlay={handlePlay} 
@@ -162,6 +162,7 @@ return (
                     </div>
                 </div>
             </div>
+            <Footer />
         </main>
     </div>
 );

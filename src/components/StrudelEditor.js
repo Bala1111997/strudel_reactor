@@ -11,7 +11,7 @@ function StrudelEditor({ editorRef, onEditorReady }) {
 
     return (
         <div>
-            <h5 className="text-white mb-3 fw-bold text-end">
+            <h5 className="text-secondary mb-3 fw-bold text-end">
                 <i className="fas fa-terminal me-2 text-success"></i>
                     Live Output
             </h5>
