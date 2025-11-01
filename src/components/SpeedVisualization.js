@@ -36,6 +36,7 @@ function SpeedVisualization({ speed }) {
             .attr("x", width / 2)
             .attr("y", 45)
             .attr("text-anchor", "middle")
+            .attr("fill", "white")
             .attr("font-family", "Arial")
             .attr("font-size", "16px")
             .attr("font-weight", "bold")

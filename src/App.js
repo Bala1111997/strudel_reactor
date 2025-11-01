@@ -2,7 +2,6 @@ import './App.css';
 import React, {useState, useEffect, useRef } from "react";
 import { StrudelMirror } from '@strudel/codemirror';
 import { evalScope } from '@strudel/core'; //func
-import { drawPianoroll } from '@strudel/draw';
 import { initAudioOnFirstClick } from '@strudel/webaudio';
 import { transpiler } from '@strudel/transpiler';
 import { getAudioContext, webaudioOutput, registerSynthSounds } from '@strudel/webaudio';
@@ -93,87 +92,86 @@ function handleRadioChange(value) {
 const hasRun = useRef(false);
 
 useEffect(() => {
-
     if (!hasRun.current) {
         document.addEventListener("d3Data", handleD3Data);
         console_monkey_patch();
         hasRun.current = true;
-        //Code copied from example: https://codeberg.org/uzu/strudel/src/branch/main/examples/codemirror-repl
-            //init canvas
-            const canvas = document.getElementById('roll');
-            canvas.width = canvas.width * 2;
-            canvas.height = canvas.height * 2;
-            const drawContext = canvas.getContext('2d');
-            const drawTime = [-2, 2]; // time window of drawn haps
-            globalEditor = new StrudelMirror({
-                defaultOutput: webaudioOutput,
-                getTime: () => getAudioContext().currentTime,
-                transpiler,
-                root: document.getElementById('editor'),
-                drawTime,
-                onDraw: (haps, time) => drawPianoroll({ haps, time, ctx: drawContext, drawTime, fold: 0 }),
-                prebake: async () => {
-                    initAudioOnFirstClick(); // needed to make the browser happy (don't await this here..)
-                    const loadModules = evalScope(
-                        import('@strudel/core'),
-                        import('@strudel/draw'),
-                        import('@strudel/mini'),
-                        import('@strudel/tonal'),
-                        import('@strudel/webaudio'),
-                    );
-                    await Promise.all([loadModules, registerSynthSounds(), registerSoundfonts()]);
-                },
-            });
-            
-        // 
+        
+        // Initialize Strudel Editor
+        globalEditor = new StrudelMirror({
+            defaultOutput: webaudioOutput,
+            getTime: () => getAudioContext().currentTime,
+            transpiler,
+            root: document.getElementById('editor'),
+            prebake: async () => {
+                initAudioOnFirstClick();
+                const loadModules = evalScope(
+                    import('@strudel/core'),
+                    import('@strudel/draw'),
+                    import('@strudel/mini'),
+                    import('@strudel/tonal'),
+                    import('@strudel/webaudio'),
+                );
+                await Promise.all([loadModules, registerSynthSounds(), registerSoundfonts()]);
+            },
+        });
+        
         if (globalEditor) {
             globalEditor.setCode(stranger_tune);
         }
     }
-
 }, []);
 
 
 return (
-    <div>
-        <h2>🎸Strudel Music Player🎸</h2>
-        <main>
+    <div className="bg-dark min-vh-100">
+        <div className="container-fluid py-3 bg-gradient bg-info text-white">
+            <div className="text-center">
+                <h2 className="mb-0 fw-bold">
+                    <i className="fas fa-music me-2"></i>
+                    Strudel Music Player
+                </h2>
+                <p className="mb-0 opacity-75">Interactive Music Programming Environment</p>
+            </div>
+        </div>
 
-            <div className="container-fluid">
-                <div className="row">
-                    
-                    <PreprocessorEditor 
-                        value={preprocessorText}
-                        onChange={setPreprocessorText}
-                    />
-                    
-                    <ControlPanel 
-                        onPlay={handlePlay} 
-                        onStop={handleStop}  
-                        onProcess={handleProcess} 
-                        onProcessAndPlay={handleProcessAndPlay} 
-                    />
-                
+        <main className="container-fluid py-4 ">
+            <div className="row g-4">
+                <div className="col-md-3">
+                    <div className="d-flex flex-column gap-4">
+                        <ControlPanel 
+                            onPlay={handlePlay} 
+                            onStop={handleStop}  
+                            onProcess={handleProcess} 
+                            onProcessAndPlay={handleProcessAndPlay} 
+                        />
+                        
+                        <RadioControls 
+                            selectedOption={radioSelection} 
+                            onRadioChange={handleRadioChange} 
+                        />
+                        <div className="text-center">
+                            <SpeedVisualization speed={radioSelection} />
+                        </div>
+                    </div>
                 </div>
-                <div className="row mt-4">
-                    <StrudelEditor 
-                        editorRef={globalEditor}
-                        onEditorReady={(container) => {
-                        }}
-                    />
-                    
-                    <RadioControls 
-                        selectedOption={radioSelection} 
-                        onRadioChange={handleRadioChange} 
-                    />
-                    
-                    <SpeedVisualization speed={radioSelection} />
-
+                <div className="col-md-9">
+                    <div className="d-flex flex-column gap-4">
+                        <PreprocessorEditor 
+                            value={preprocessorText}
+                            onChange={setPreprocessorText}
+                        />
+                        
+                        <StrudelEditor 
+                            editorRef={globalEditor}
+                            onEditorReady={(container) => {
+                            }}
+                        />
+                    </div>
                 </div>
             </div>
-            <canvas id="roll"></canvas>
-        </main >
-    </div >
+        </main>
+    </div>
 );
 
 

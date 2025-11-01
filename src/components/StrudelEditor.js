@@ -11,8 +11,8 @@ function StrudelEditor({ editorRef, onEditorReady }) {
 
     return (
         <div>
-            <p>Output</p>
-            <div className="col-md-5 " style={{ maxHeight: '50vh', overflowY: 'auto' }}>
+            <h5 className="text-white mb-3">Output</h5>
+            <div style={{ maxHeight: '50vh', overflowY: 'auto' }}>
                 <div id="editor" />
                 <div id="output" />
             </div>

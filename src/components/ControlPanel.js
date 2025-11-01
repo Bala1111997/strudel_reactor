@@ -2,7 +2,7 @@ import React from "react";
 
 function ControlPanel({ onPlay, onStop, onProcess, onProcessAndPlay }) {
     return (
-        <div className="col-md-2">
+        <div>
             <div className="card shadow-lg border-0">
                 <div className="card-header bg-gradient bg-dark text-white text-center">
                     <h5 className="mb-0">
