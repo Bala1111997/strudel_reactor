@@ -7,7 +7,6 @@ import { transpiler } from '@strudel/transpiler';
 import { getAudioContext, webaudioOutput, registerSynthSounds } from '@strudel/webaudio';
 import { registerSoundfonts } from '@strudel/soundfonts';
 import { stranger_tune } from './tunes';
-import console_monkey_patch from './console-monkey-patch'; //getD3Data
 import ControlPanel from './components/ControlPanel';
 import PreprocessorEditor from './components/PreprocessorEditor';
 import RadioControls from './components/RadioControls';
@@ -17,10 +16,6 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
 let globalEditor = null;
-
-const handleD3Data = (event) => {
-    console.log(event.detail);
-};
 
 export default function App() {
 
@@ -33,14 +28,9 @@ const [radioSelection, setRadioSelection] = useState('normal');
 
 function Proc() {
     let proc_text = preprocessorText; 
-    let proc_text_replaced = proc_text.replaceAll('<p1_Speed>', ProcessText);
-    ProcessText(proc_text);
+    let replace = getSpeedValue(radioSelection);
+    let proc_text_replaced = proc_text.replaceAll('<p1_Speed>', replace);
     globalEditor.setCode(proc_text_replaced)
-}
-
-
-function ProcessText(match, ...args) {
-    return getSpeedValue(radioSelection);
 }
 
 function getSpeedValue(speed) {
@@ -94,8 +84,6 @@ const hasRun = useRef(false);
 
 useEffect(() => {
     if (!hasRun.current) {
-        document.addEventListener("d3Data", handleD3Data);
-        console_monkey_patch();
         hasRun.current = true;
         
         // Initialize Strudel Editor
@@ -154,11 +142,7 @@ return (
                             onChange={setPreprocessorText}
                         />
                         
-                        <StrudelEditor 
-                            editorRef={globalEditor}
-                            onEditorReady={(container) => {
-                            }}
-                        />
+                        <StrudelEditor />
                     </div>
                 </div>
             </div>

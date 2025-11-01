@@ -1,14 +1,6 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 
-function StrudelEditor({ editorRef, onEditorReady }) {
-    const containerRef = useRef(null);
-
-    useEffect(() => {
-        if (onEditorReady && containerRef.current) {
-            onEditorReady(containerRef.current);
-        }
-    }, [onEditorReady]);
-
+function StrudelEditor() {
     return (
         <div>
             <h5 className="text-secondary mb-3 fw-bold text-end">
@@ -17,7 +9,6 @@ function StrudelEditor({ editorRef, onEditorReady }) {
             </h5>
             <div style={{ maxHeight: '50vh', overflowY: 'auto' }}>
                 <div id="editor" />
-                <div id="output" />
             </div>
         </div>
     );
