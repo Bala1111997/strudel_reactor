@@ -3,7 +3,10 @@ import React from "react";
 function PreprocessorEditor({ value, onChange }) {
     return (
         <div>
-            <h5 className="text-white mb-3">Music Code Editor</h5>
+            <h5 className="text-white mb-3 fw-bold text-end">
+                <i className="fas fa-code me-2 text-primary"></i>
+                Music Code Editor
+            </h5>
             
             <textarea 
                 className="form-control bg-dark text-light border-secondary" 

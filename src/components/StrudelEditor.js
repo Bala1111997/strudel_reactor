@@ -11,7 +11,10 @@ function StrudelEditor({ editorRef, onEditorReady }) {
 
     return (
         <div>
-            <h5 className="text-white mb-3">Output</h5>
+            <h5 className="text-white mb-3 fw-bold text-end">
+                <i className="fas fa-terminal me-2 text-success"></i>
+                    Live Output
+            </h5>
             <div style={{ maxHeight: '50vh', overflowY: 'auto' }}>
                 <div id="editor" />
                 <div id="output" />

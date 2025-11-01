@@ -13,6 +13,7 @@ import PreprocessorEditor from './components/PreprocessorEditor';
 import RadioControls from './components/RadioControls';
 import SpeedVisualization from './components/SpeedVisualization';
 import StrudelEditor from './components/StrudelEditor';
+import Navbar from './components/Navbar';
 
 
 let globalEditor = null;
@@ -125,19 +126,10 @@ useEffect(() => {
 
 return (
     <div className="bg-dark min-vh-100">
-        <div className="container-fluid py-3 bg-gradient bg-info text-white">
-            <div className="text-center">
-                <h2 className="mb-0 fw-bold">
-                    <i className="fas fa-music me-2"></i>
-                    Strudel Music Player
-                </h2>
-                <p className="mb-0 opacity-75">Interactive Music Programming Environment</p>
-            </div>
-        </div>
-
+        <Navbar />
         <main className="container-fluid py-4 ">
             <div className="row g-4">
-                <div className="col-md-3">
+                <div className="col-md-3" style={{marginTop: "4.5rem"}}>
                     <div className="d-flex flex-column gap-4">
                         <ControlPanel 
                             onPlay={handlePlay} 
