@@ -1,3 +1,6 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+
 function Navbar() {
     return (
         <div class="border-bottom border-gray">
@@ -8,11 +11,16 @@ function Navbar() {
                         🎺 𝒮𝓉𝓇𝓊𝒹𝑒𝓁 𝑀𝓊𝓈𝒾𝒸 𝒫𝓁𝒶𝓎𝑒𝓇 🎺
                     </h3>
                     <ul class="nav nav-pills"> 
-                        <li class="nav-item"><a href="#" class="nav-link active fs-5 fw-semibold" aria-current="page">Home</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link fs-5 fw-semibold">Features</a></li> 
-                        <li class="nav-item"><a href="#" class="nav-link fs-5 fw-semibold">Pricing</a></li> 
-                        <li class="nav-item"><a href="#" class="nav-link fs-5 fw-semibold">FAQs</a></li> 
-                        <li class="nav-item"><a href="#" class="nav-link fs-5 fw-semibold">About</a></li> 
+                        <li class="nav-item">
+                            <Link to="/" class="nav-link active fs-5 fw-semibold">
+                                Home
+                            </Link>
+                        </li>
+                        <li class="nav-item">
+                            <Link to="/documentation" class="nav-link fs-5 fw-semibold">
+                                Documentation
+                            </Link>
+                        </li> 
                     </ul> 
                 </header> 
             </div>
