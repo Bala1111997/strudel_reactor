@@ -113,9 +113,9 @@ useEffect(() => {
 
 
 return (
-    <div className="bg-dark min-vh-100">
+    <div className="bg-dark min-vh-100 d-flex flex-column">
         <Navbar />
-        <main className="container-fluid py-4 ">
+        <main className="container-fluid py-4 flex-grow-1">
             <div className="row g-4">
                 <div className="col-md-3" style={{marginTop: "4rem"}}>
                     <div className="d-flex flex-column gap-4">
@@ -146,8 +146,8 @@ return (
                     </div>
                 </div>
             </div>
-            <Footer />
         </main>
+        <Footer />
     </div>
 );
 

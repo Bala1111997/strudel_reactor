@@ -4,9 +4,9 @@ import Footer from './Footer';
 
 function Documentation() {
     return (
-        <div className="bg-dark min-vh-100">
+        <div className="bg-dark min-vh-100 d-flex flex-column">
             <Navbar />
-            <main className="container-fluid py-4">
+            <main className="container-fluid py-4 flex-grow-1">
                 <div className="row justify-content-center">
                     <div className="col-md-8">
                         <article className="blog-post text-white">
