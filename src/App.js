@@ -15,6 +15,7 @@ import StrudelEditor from './components/StrudelEditor';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import VolumeControl from './components/VolumeControl';
+import Mp3 from './components/Mp3';
 
 let globalEditor = null;
 
@@ -120,6 +121,9 @@ return (
             <div className="row g-4">
                 <div className="col-md-3" style={{marginTop: "4rem"}}>
                     <div className="d-flex flex-column gap-4">
+                        
+                        <Mp3 />
+                        
                         <ControlPanel 
                             onPlay={handlePlay} 
                             onStop={handleStop}  
