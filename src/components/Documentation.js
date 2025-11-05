@@ -41,33 +41,35 @@ function Documentation() {
             <pre className="bg-secondary text-white p-3 rounded">&lt;p1_Speed&gt;</pre>
             <p>This placeholder gets automatically replaced with the current speed value based on your radio button selection:</p>
             <ul>
-                <li><span className="bg-secondary text-white px-2 py-1 rounded">&lt;p1_Speed&gt;</span> becomes <span className="bg-success text-white px-2 py-1 rounded">2</span> when <strong className="text-danger">Fast</strong> is selected</li>
-                <li><span className="bg-secondary text-white px-2 py-1 rounded">&lt;p1_Speed&gt;</span> becomes <span className="bg-success text-white px-2 py-1 rounded">1</span> when <strong className="text-success">Normal</strong> is selected</li>
-                <li><span className="bg-secondary text-white px-2 py-1 rounded">&lt;p1_Speed&gt;</span> becomes <span className="bg-success text-white px-2 py-1 rounded">0.5</span> when <strong className="text-primary">Slow</strong> is selected</li>
-            </ul>                            <h3 className="text-info">Example Usage</h3>
-                            <p>Here's how you can use the speed control in your Strudel code:</p>
-                            <pre className="bg-secondary text-white p-3 rounded">sound("bd hh sd hh").speed(&lt;p1_Speed&gt;)</pre>
-                            <p>When you change the speed setting, this automatically becomes:</p>
-                            <ul>
-                                <li><strong>Fast:</strong> <span className="bg-dark text-success px-2 py-1 rounded">sound("bd hh sd hh").speed(2)</span></li>
-                                <li><strong>Normal:</strong> <span className="bg-dark text-success px-2 py-1 rounded">sound("bd hh sd hh").speed(1)</span></li>
-                                <li><strong>Slow:</strong> <span className="bg-dark text-success px-2 py-1 rounded">sound("bd hh sd hh").speed(0.5)</span></li>
-                            </ul>
-                            
-                            <h3 className="text-warning">Sample Code Examples</h3>
-                            <p>Copy these examples into your Music Code Editor to test speed control:</p>
-                            
-                            <h4 className="text-info">Simple Pattern:</h4>
+                <li><span className="bg-secondary text-white px-2 py-1 rounded">&lt;p1_Speed&gt;</span> becomes <strong className="text-danger">2</strong> when <strong className="text-danger">Fast</strong> is selected</li>
+                <li><span className="bg-secondary text-white px-2 py-1 rounded">&lt;p1_Speed&gt;</span> becomes <strong className="text-success">1</strong> when <strong className="text-success">Normal</strong> is selected</li>
+                <li><span className="bg-secondary text-white px-2 py-1 rounded">&lt;p1_Speed&gt;</span> becomes <strong className="text-primary">0.5</strong> when <strong className="text-primary">Slow</strong> is selected</li>
+            </ul>
+            
+            <h3 className="text-info">Example Usage</h3>
+            <p>Here's how you can use the speed control in your Strudel code:</p>
+            <pre className="bg-secondary text-white p-3 rounded">sound("bd hh sd hh").speed(&lt;p1_Speed&gt;)</pre>
+            <p>When you change the speed setting, this automatically becomes:</p>
+            <ul>
+                <li><strong>Fast:</strong> <span className="bg-dark text-success px-2 py-1 rounded">sound("bd hh sd hh").speed(2)</span></li>
+                <li><strong>Normal:</strong> <span className="bg-dark text-success px-2 py-1 rounded">sound("bd hh sd hh").speed(1)</span></li>
+                <li><strong>Slow:</strong> <span className="bg-dark text-success px-2 py-1 rounded">sound("bd hh sd hh").speed(0.5)</span></li>
+            </ul>
+            
+            <h3 className="text-warning">Sample Code Examples</h3>
+            <p>Copy these examples into your Music Code Editor to test speed control:</p>
+            
+            
                             <pre className="bg-secondary text-white p-3 rounded">var cpm = 40;
 
 note("c3 g3 e3 g3").sound("sawtooth").cpm(cpm * &lt;p1_Speed&gt;)</pre>
                             
-                            <h4 className="text-info">Bass Line:</h4>
+                            
                             <pre className="bg-secondary text-white p-3 rounded">var cpm = 25;
 
 note("f1 ~ ~ f1 ~ ~ f1 ~").sound("square").lpf(200).cpm(cpm * &lt;p1_Speed&gt;)</pre>
                             
-                            <h4 className="text-info">Multiple Sounds:</h4>
+                           
                             <pre className="bg-secondary text-white p-3 rounded">var cpm = 30;
 
 stack(
@@ -75,7 +77,7 @@ stack(
   note("f5").sound("sine")
 ).cpm(cpm * &lt;p1_Speed&gt;)</pre>
                             
-                            <h4 className="text-info">Using Speed Method:</h4>
+                            
                             <pre className="bg-secondary text-white p-3 rounded">var cpm = 35;
 
 note("c5 f4 bb4 ab4").sound("triangle").cpm(cpm * &lt;p1_Speed&gt;)</pre>

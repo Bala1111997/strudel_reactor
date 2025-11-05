@@ -14,6 +14,7 @@ import SpeedVisualization from './components/SpeedVisualization';
 import StrudelEditor from './components/StrudelEditor';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import VolumeControl from './components/VolumeControl';
 
 let globalEditor = null;
 
@@ -130,6 +131,9 @@ return (
                             selectedOption={radioSelection} 
                             onRadioChange={handleRadioChange} 
                         />
+                        
+                        <VolumeControl />
+
                         <div className="text-center">
                             <SpeedVisualization speed={radioSelection} />
                         </div>
