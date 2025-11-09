@@ -16,6 +16,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import VolumeControl from './components/VolumeControl';
 import Mp3 from './components/Mp3';
+import ReverbControl from './components/ReverbControl';
 
 let globalEditor = null;
 
@@ -27,23 +28,44 @@ const [preprocessorText, setPreprocessorText] = useState(stranger_tune);
 // State for Radio Button Selection.
 const [radioSelection, setRadioSelection] = useState('normal');
 
+// State for Reverb Selection.
+const [reverbSelection, setReverbSelection] = useState('low');
+
 
 function Proc() {
-    let proc_text = preprocessorText; 
-    let replace = getSpeedValue(radioSelection);
-    let proc_text_replaced = proc_text.replaceAll('<p1_Speed>', replace);
+    let proc_text = preprocessorText;
+    let speedReplace = getSpeedValue(radioSelection);
+    let reverbReplace = getReverbValue(reverbSelection);
+
+    let proc_text_replaced = proc_text
+        .replaceAll('<p1_Speed>', speedReplace)
+        .replaceAll('<p1_Reverb>', reverbReplace);
+
     globalEditor.setCode(proc_text_replaced)
 }
 
 function getSpeedValue(speed) {
     if (speed === "fast") {
-        return "2";      // Double the base tempo
+        return "2";      
     } else if (speed === "normal") {
-        return "1";      // Normal tempo
+        return "1";      
     } else if (speed === "slow") {
-        return "0.5";    // Half the tempo 
+        return "0.5";    
     }
-    return "1"; // Default to normal
+    return "1";
+}
+
+function getReverbValue(reverb) {
+    if (reverb === "none") {
+        return "0.0";
+    } else if (reverb === "low") {
+        return "0.3";
+    } else if (reverb === "medium") {
+        return "0.5";
+    } else if (reverb === "high") {
+        return "0.8";
+    }
+    return "0.3"; 
 }
 
 // Functions for Control Panel.
@@ -66,17 +88,39 @@ function handleProcessAndPlay() {
     if (globalEditor != null) {
         Proc();
         globalEditor.evaluate();
-    }   
+    }
 };
 
 
 function handleRadioChange(value) {
     setRadioSelection(value);
-    
+
     if (globalEditor != null) {
         let proc_text = preprocessorText;
-        let replace = getSpeedValue(value);
-        let proc_text_replaced = proc_text.replaceAll('<p1_Speed>', replace);
+        let speedReplace = getSpeedValue(value);
+        let reverbReplace = getReverbValue(reverbSelection);
+
+        let proc_text_replaced = proc_text
+            .replaceAll('<p1_Speed>', speedReplace)
+            .replaceAll('<p1_Reverb>', reverbReplace);
+
+        globalEditor.setCode(proc_text_replaced);
+        globalEditor.evaluate();
+    }
+}
+
+function handleReverbChange(value) {
+    setReverbSelection(value);
+
+    if (globalEditor != null) {
+        let proc_text = preprocessorText;
+        let speedReplace = getSpeedValue(radioSelection);
+        let reverbReplace = getReverbValue(value);
+
+        let proc_text_replaced = proc_text
+            .replaceAll('<p1_Speed>', speedReplace)
+            .replaceAll('<p1_Reverb>', reverbReplace);
+
         globalEditor.setCode(proc_text_replaced);
         globalEditor.evaluate();
     }
@@ -87,7 +131,7 @@ const hasRun = useRef(false);
 useEffect(() => {
     if (!hasRun.current) {
         hasRun.current = true;
-        
+
         // Initialize Strudel Editor
         globalEditor = new StrudelMirror({
             defaultOutput: webaudioOutput,
@@ -106,9 +150,10 @@ useEffect(() => {
                 await Promise.all([loadModules, registerSynthSounds(), registerSoundfonts()]);
             },
         });
-        
+
         if (globalEditor) {
             globalEditor.setCode(stranger_tune);
+            window.globalEditor = globalEditor;
         }
     }
 }, []);
@@ -131,11 +176,16 @@ return (
                             onProcessAndPlay={handleProcessAndPlay} 
                         />
                         
-                        <RadioControls 
-                            selectedOption={radioSelection} 
-                            onRadioChange={handleRadioChange} 
+                        <RadioControls
+                            selectedOption={radioSelection}
+                            onRadioChange={handleRadioChange}
                         />
-                        
+
+                        <ReverbControl
+                            selectedReverb={reverbSelection}
+                            onReverbChange={handleReverbChange}
+                        />
+
                         <VolumeControl />
 
                         <div className="text-center">

@@ -95,4 +95,4 @@ note(\`
   .mask("<0!20 1!12>")
 ,
 
-).cpm(cpm * <p1_Speed>)`;
+).room(<p1_Reverb>).cpm(cpm * <p1_Speed>)`;

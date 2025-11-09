@@ -5,6 +5,7 @@ function VolumeControl() {
 
     const handleVolumeChange = (e) => {
         setVolume(e.target.value);
+        
     };
 
     return (
