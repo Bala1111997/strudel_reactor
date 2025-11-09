@@ -22,7 +22,7 @@ function ReverbControl({ selectedReverb, onReverbChange }) {
                             onChange={(e) => onReverbChange(e.target.value)}
                         />
                         <label className="form-check-label" htmlFor="reverbNone">
-                            None (0.0)
+                            None
                         </label>
                     </div>
                     <div className="form-check">
@@ -36,7 +36,7 @@ function ReverbControl({ selectedReverb, onReverbChange }) {
                             onChange={(e) => onReverbChange(e.target.value)}
                         />
                         <label className="form-check-label" htmlFor="reverbLow">
-                            Low (0.3)
+                            Low 
                         </label>
                     </div>
                     <div className="form-check">
@@ -50,7 +50,7 @@ function ReverbControl({ selectedReverb, onReverbChange }) {
                             onChange={(e) => onReverbChange(e.target.value)}
                         />
                         <label className="form-check-label" htmlFor="reverbMedium">
-                            Medium (0.5)
+                            Medium
                         </label>
                     </div>
                     <div className="form-check">
@@ -64,7 +64,7 @@ function ReverbControl({ selectedReverb, onReverbChange }) {
                             onChange={(e) => onReverbChange(e.target.value)}
                         />
                         <label className="form-check-label" htmlFor="reverbHigh">
-                            High (0.8)
+                            High
                         </label>
                     </div>
                 </div>

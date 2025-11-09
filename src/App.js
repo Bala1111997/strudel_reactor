@@ -31,15 +31,20 @@ const [radioSelection, setRadioSelection] = useState('normal');
 // State for Reverb Selection.
 const [reverbSelection, setReverbSelection] = useState('low');
 
+// State for Volume.
+const [volume, setVolume] = useState(100);
+
 
 function Proc() {
     let proc_text = preprocessorText;
     let speedReplace = getSpeedValue(radioSelection);
     let reverbReplace = getReverbValue(reverbSelection);
+    let volumeReplace = (volume / 100).toFixed(2);
 
     let proc_text_replaced = proc_text
         .replaceAll('<p1_Speed>', speedReplace)
-        .replaceAll('<p1_Reverb>', reverbReplace);
+        .replaceAll('<p1_Reverb>', reverbReplace)
+        .replaceAll('<p1_Volume>', volumeReplace);
 
     globalEditor.setCode(proc_text_replaced)
 }
@@ -99,10 +104,12 @@ function handleRadioChange(value) {
         let proc_text = preprocessorText;
         let speedReplace = getSpeedValue(value);
         let reverbReplace = getReverbValue(reverbSelection);
+        let volumeReplace = (volume / 100).toFixed(2);
 
         let proc_text_replaced = proc_text
             .replaceAll('<p1_Speed>', speedReplace)
-            .replaceAll('<p1_Reverb>', reverbReplace);
+            .replaceAll('<p1_Reverb>', reverbReplace)
+            .replaceAll('<p1_Volume>', volumeReplace);
 
         globalEditor.setCode(proc_text_replaced);
         globalEditor.evaluate();
@@ -116,10 +123,31 @@ function handleReverbChange(value) {
         let proc_text = preprocessorText;
         let speedReplace = getSpeedValue(radioSelection);
         let reverbReplace = getReverbValue(value);
+        let volumeReplace = (volume / 100).toFixed(2);
 
         let proc_text_replaced = proc_text
             .replaceAll('<p1_Speed>', speedReplace)
-            .replaceAll('<p1_Reverb>', reverbReplace);
+            .replaceAll('<p1_Reverb>', reverbReplace)
+            .replaceAll('<p1_Volume>', volumeReplace);
+
+        globalEditor.setCode(proc_text_replaced);
+        globalEditor.evaluate();
+    }
+}
+
+function handleVolumeChange(value) {
+    setVolume(value);
+
+    if (globalEditor != null) {
+        let proc_text = preprocessorText;
+        let speedReplace = getSpeedValue(radioSelection);
+        let reverbReplace = getReverbValue(reverbSelection);
+        let volumeReplace = (value / 100).toFixed(2);
+
+        let proc_text_replaced = proc_text
+            .replaceAll('<p1_Speed>', speedReplace)
+            .replaceAll('<p1_Reverb>', reverbReplace)
+            .replaceAll('<p1_Volume>', volumeReplace);
 
         globalEditor.setCode(proc_text_replaced);
         globalEditor.evaluate();
@@ -186,7 +214,10 @@ return (
                             onReverbChange={handleReverbChange}
                         />
 
-                        <VolumeControl />
+                        <VolumeControl
+                            volume={volume}
+                            onVolumeChange={handleVolumeChange}
+                        />
 
                         <div className="text-center">
                             <SpeedVisualization speed={radioSelection} />
