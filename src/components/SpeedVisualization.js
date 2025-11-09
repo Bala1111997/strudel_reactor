@@ -11,18 +11,18 @@ function SpeedVisualization({ speed }) {
         const width = 200;
         
         
-        // Create speed level bar
+       
         const speedValue = speed === 'fast' ? 2 : speed === 'normal' ? 1 : 0.5;
-        const barWidth = (speedValue / 2) * width; // Scale to fit width
+        const barWidth = (speedValue / 2) * width;
         
-        // Background bar
+       
         svg.append("rect")
             .attr("width", width)
             .attr("height", 20)
             .attr("fill", "#e0e0e0")
             .attr("rx", 10);
             
-        // Speed bar
+       
         svg.append("rect")
             .attr("width", barWidth)
             .attr("height", 20)
@@ -30,18 +30,7 @@ function SpeedVisualization({ speed }) {
             .attr("rx", 10)
             .transition()
             .duration(500);
-            
-        // Speed text
-        svg.append("text")
-            .attr("x", width / 2)
-            .attr("y", 45)
-            .attr("text-anchor", "middle")
-            .attr("fill", "white")
-            .attr("font-family", "Arial")
-            .attr("font-size", "16px")
-            .attr("font-weight", "bold")
-            .text(`Speed: ${speed.toUpperCase()}`);
-            
+
     }, [speed]);
 
     return (

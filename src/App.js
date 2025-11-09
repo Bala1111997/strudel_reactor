@@ -17,6 +17,7 @@ import Footer from './components/Footer';
 import VolumeControl from './components/VolumeControl';
 import Mp3 from './components/Mp3';
 import ReverbControl from './components/ReverbControl';
+import CrushControl from './components/CrushControl';
 
 let globalEditor = null;
 
@@ -34,17 +35,22 @@ const [reverbSelection, setReverbSelection] = useState('low');
 // State for Volume.
 const [volume, setVolume] = useState(100);
 
+// State for Crush.
+const [crush, setCrush] = useState(8);
+
 
 function Proc() {
     let proc_text = preprocessorText;
     let speedReplace = getSpeedValue(radioSelection);
     let reverbReplace = getReverbValue(reverbSelection);
     let volumeReplace = (volume / 100).toFixed(2);
+    let crushReplace = crush;
 
     let proc_text_replaced = proc_text
         .replaceAll('<p1_Speed>', speedReplace)
         .replaceAll('<p1_Reverb>', reverbReplace)
-        .replaceAll('<p1_Volume>', volumeReplace);
+        .replaceAll('<p1_Volume>', volumeReplace)
+        .replaceAll('<p1_Crush>', crushReplace);
 
     globalEditor.setCode(proc_text_replaced)
 }
@@ -105,11 +111,13 @@ function handleRadioChange(value) {
         let speedReplace = getSpeedValue(value);
         let reverbReplace = getReverbValue(reverbSelection);
         let volumeReplace = (volume / 100).toFixed(2);
+        let crushReplace = crush;
 
         let proc_text_replaced = proc_text
             .replaceAll('<p1_Speed>', speedReplace)
             .replaceAll('<p1_Reverb>', reverbReplace)
-            .replaceAll('<p1_Volume>', volumeReplace);
+            .replaceAll('<p1_Volume>', volumeReplace)
+            .replaceAll('<p1_Crush>', crushReplace);
 
         globalEditor.setCode(proc_text_replaced);
         globalEditor.evaluate();
@@ -124,11 +132,13 @@ function handleReverbChange(value) {
         let speedReplace = getSpeedValue(radioSelection);
         let reverbReplace = getReverbValue(value);
         let volumeReplace = (volume / 100).toFixed(2);
+        let crushReplace = crush;
 
         let proc_text_replaced = proc_text
             .replaceAll('<p1_Speed>', speedReplace)
             .replaceAll('<p1_Reverb>', reverbReplace)
-            .replaceAll('<p1_Volume>', volumeReplace);
+            .replaceAll('<p1_Volume>', volumeReplace)
+            .replaceAll('<p1_Crush>', crushReplace);
 
         globalEditor.setCode(proc_text_replaced);
         globalEditor.evaluate();
@@ -143,11 +153,34 @@ function handleVolumeChange(value) {
         let speedReplace = getSpeedValue(radioSelection);
         let reverbReplace = getReverbValue(reverbSelection);
         let volumeReplace = (value / 100).toFixed(2);
+        let crushReplace = crush;
 
         let proc_text_replaced = proc_text
             .replaceAll('<p1_Speed>', speedReplace)
             .replaceAll('<p1_Reverb>', reverbReplace)
-            .replaceAll('<p1_Volume>', volumeReplace);
+            .replaceAll('<p1_Volume>', volumeReplace)
+            .replaceAll('<p1_Crush>', crushReplace);
+
+        globalEditor.setCode(proc_text_replaced);
+        globalEditor.evaluate();
+    }
+}
+
+function handleCrushChange(value) {
+    setCrush(value);
+
+    if (globalEditor != null) {
+        let proc_text = preprocessorText;
+        let speedReplace = getSpeedValue(radioSelection);
+        let reverbReplace = getReverbValue(reverbSelection);
+        let volumeReplace = (volume / 100).toFixed(2);
+        let crushReplace = value;
+
+        let proc_text_replaced = proc_text
+            .replaceAll('<p1_Speed>', speedReplace)
+            .replaceAll('<p1_Reverb>', reverbReplace)
+            .replaceAll('<p1_Volume>', volumeReplace)
+            .replaceAll('<p1_Crush>', crushReplace);
 
         globalEditor.setCode(proc_text_replaced);
         globalEditor.evaluate();
@@ -209,19 +242,24 @@ return (
                             onRadioChange={handleRadioChange}
                         />
 
+                        <div className="text-center" style={{ marginBottom: '-1.3rem' }}>
+                            <SpeedVisualization speed={radioSelection} />
+                        </div>
+
                         <ReverbControl
                             selectedReverb={reverbSelection}
                             onReverbChange={handleReverbChange}
+                        />
+
+                        <CrushControl
+                            crush={crush}
+                            onCrushChange={handleCrushChange}
                         />
 
                         <VolumeControl
                             volume={volume}
                             onVolumeChange={handleVolumeChange}
                         />
-
-                        <div className="text-center">
-                            <SpeedVisualization speed={radioSelection} />
-                        </div>
                     </div>
                 </div>
                 <div className="col-md-9">
