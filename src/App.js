@@ -18,6 +18,7 @@ import VolumeControl from './components/VolumeControl';
 import Mp3 from './components/Mp3';
 import ReverbControl from './components/ReverbControl';
 import CrushControl from './components/CrushControl';
+import BeatVisualization from './components/BeatVisualization';
 
 let globalEditor = null;
 
@@ -260,16 +261,27 @@ return (
                             volume={volume}
                             onVolumeChange={handleVolumeChange}
                         />
+
                     </div>
                 </div>
                 <div className="col-md-9">
                     <div className="d-flex flex-column gap-4">
-                        <PreprocessorEditor 
+                        <PreprocessorEditor
                             value={preprocessorText}
                             onChange={setPreprocessorText}
                         />
-                        
-                        <StrudelEditor />
+
+                        <div className="row">
+                            <div className="col-md-8">
+                                <StrudelEditor />
+                            </div>
+                            <div className="col-md-4">
+                                <div className="text-center">
+
+                                    <BeatVisualization />
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
