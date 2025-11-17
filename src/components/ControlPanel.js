@@ -1,5 +1,7 @@
+// ContorlPanel component for audio processing and play, stop, process/play.
 import React from "react";
 
+// Pass the handlers for play, stop, process, and process/play actions in the function.
 function ControlPanel({ onPlay, onStop, onProcess, onProcessAndPlay }) {
     return (
         <div>

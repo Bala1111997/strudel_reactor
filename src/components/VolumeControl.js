@@ -1,5 +1,8 @@
+// VolumeControl component for adjusting the audio.
+
 import React from 'react';
 
+// Pass volume value and handler for volume changes in the function.
 function VolumeControl({ volume, onVolumeChange }) {
     return (
         <div className="card shadow-lg border-0">

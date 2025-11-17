@@ -1,5 +1,7 @@
+// ReverbControl component for adjusting the reverb effect of audio processing.
 import React from 'react';
 
+// Pass selected reverb option and handler for reverb changes in the function.
 function ReverbControl({ selectedReverb, onReverbChange }) {
     return (
         <div className="card shadow-lg border-0">

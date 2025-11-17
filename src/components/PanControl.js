@@ -1,5 +1,8 @@
+// PanControl component for adjusting the pan level of audio processing.
+
 import React from 'react';
 
+// Pass pan value and handler for pan level changes in the function.
 function PanControl({ pan, onPanChange }) {
     return (
         <div className="card shadow-lg border-0">

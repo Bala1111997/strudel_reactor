@@ -1,5 +1,8 @@
+// CrushControl component for adjusting the crush level of audio processing.
+
 import React from 'react';
 
+// Pass cursh value and handler for crush level changes in the function.
 function CrushControl({ crush, onCrushChange }) {
     return (
         <div className="card shadow-lg border-0">

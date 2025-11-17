@@ -22,28 +22,21 @@ import CrushControl from './components/CrushControl';
 import BeatVisualization from './components/BeatVisualization';
 import PanControl from './components/PanControl';
 
+
+// Global editor variable.
 let globalEditor = null;
 
 export default function App() {
 
-// State for Preprocessor Text Area.
+// State management for all controls.
 const [preprocessorText, setPreprocessorText] = useState(stranger_tune);
-
-// State for Radio Button Selection.
 const [radioSelection, setRadioSelection] = useState('normal');
-
-// State for Reverb Selection.
 const [reverbSelection, setReverbSelection] = useState('low');
-
-// State for Volume.
 const [volume, setVolume] = useState(100);
-
-// State for Crush.
 const [crush, setCrush] = useState(8);
-
 const [pan, setPan] = useState(50);
 
-
+// Processing function to replace placeholders and set code in the editor.
 function Proc() {
     let proc_text = preprocessorText;
     let speedReplace = getSpeedValue(radioSelection);
@@ -62,6 +55,7 @@ function Proc() {
     globalEditor.setCode(proc_text_replaced)
 }
 
+// Convert speed selection to number string.
 function getSpeedValue(speed) {
     if (speed === "fast") {
         return "2";      
@@ -73,6 +67,8 @@ function getSpeedValue(speed) {
     return "1";
 }
 
+
+// Convert reverb selection to number string.
 function getReverbValue(reverb) {
     if (reverb === "none") {
         return "0.0";
@@ -109,7 +105,7 @@ function handleProcessAndPlay() {
     }
 };
 
-
+// Handler to update state and set the code.
 function handleRadioChange(value) {
     setRadioSelection(value);
 
@@ -225,12 +221,15 @@ function handlePanChange(value) {
     }
 }
 
+// Prevent multiple initializations.
 const hasRun = useRef(false);
 
+// Initialize the Strudel editor.
 useEffect(() => {
     if (!hasRun.current) {
         hasRun.current = true;
 
+        // Apply console monkey patch for D3.
         console_monkey_patch();
 
         globalEditor = new StrudelMirror({
@@ -258,7 +257,7 @@ useEffect(() => {
     }
 }, []);
 
-
+// App render with all components.
 return (
     <div className="bg-dark min-vh-100 d-flex flex-column">
         <Navbar />

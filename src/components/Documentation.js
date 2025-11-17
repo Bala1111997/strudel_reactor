@@ -1,3 +1,5 @@
+// Documentation component for Strudel Music Player instructions and features.
+
 import React from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';

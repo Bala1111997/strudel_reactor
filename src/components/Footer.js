@@ -1,3 +1,5 @@
+// Footer component.
+
 function Footer() {
     return (
         <footer class="py-3 border-top border-gray mt-auto"> 

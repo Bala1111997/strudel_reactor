@@ -1,3 +1,5 @@
+// StrudelEditor component to display live output editor.
+
 import React from 'react';
 
 function StrudelEditor() {

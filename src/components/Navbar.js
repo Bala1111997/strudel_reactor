@@ -1,3 +1,5 @@
+// Navbar component with Links to Home and Documentation pages.
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -10,6 +12,8 @@ function Navbar() {
                         <i class="fas fa-music me-2 text-primary"></i>
                         🎺 𝒮𝓉𝓇𝓊𝒹𝑒𝓁 𝑀𝓊𝓈𝒾𝒸 𝒫𝓁𝒶𝓎𝑒𝓇 🎺
                     </h3>
+
+                    // Navigation links.
                     <ul class="nav nav-pills"> 
                         <li class="nav-item">
                             <Link to="/" class="nav-link active fs-5 fw-semibold">

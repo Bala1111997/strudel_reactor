@@ -1,3 +1,5 @@
+// Use data from Strudel.log() patterns captured by console-monkey-patch.
+
 import React, { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
 import { subscribe, unsubscribe } from '../console-monkey-patch';
@@ -5,7 +7,9 @@ import { subscribe, unsubscribe } from '../console-monkey-patch';
 function BeatVisualization() {
     const svgRef = useRef();
     const [logData, setLogData] = useState([]);
+    
 
+    // D3 data subscription.
     useEffect(() => {
         const handleD3Data = (event) => {
             setLogData(event.detail);
@@ -15,10 +19,13 @@ function BeatVisualization() {
         return () => unsubscribe('d3Data', handleD3Data);
     }, []);
 
+
+    // Create D3 visualization based on logData.
     useEffect(() => {
         const svg = d3.select(svgRef.current);
         svg.selectAll("*").remove();
 
+        // Background rectangle
         svg.append("rect")
             .attr("width", 400)
             .attr("height", 550)
@@ -27,6 +34,7 @@ function BeatVisualization() {
             .attr("stroke-width", 2)
             .attr("rx", 8);
 
+        // Bars and colors.
         const colors = ["#ff4444", "#44ff44", "#4444ff", "#ffaa44", "#ff44ff", "#44ffff"];
 
         colors.forEach((color, i) => {
@@ -40,11 +48,13 @@ function BeatVisualization() {
                 .attr("rx", 4);
         });
 
+        // Animage bars based on logData.
         const interval = setInterval(() => {
             if (logData.length > 0) {
                 const dataLength = logData.length;
                 const step = Math.max(1, Math.floor(dataLength / 6));
 
+                // Update each bar height on data values.
                 colors.forEach((color, i) => {
                     const index = Math.min(i * step, dataLength - 1);
                     const value = logData[index];

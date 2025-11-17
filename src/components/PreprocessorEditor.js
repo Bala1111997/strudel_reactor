@@ -1,5 +1,8 @@
+// PreprocessorEditor component for editing Strudel music code.
+
 import React from "react";
 
+// Pass the value of the code and the handler for changes in the fuction.
 function PreprocessorEditor({ value, onChange }) {
     return (
         <div>
