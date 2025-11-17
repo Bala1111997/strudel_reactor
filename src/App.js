@@ -7,6 +7,7 @@ import { transpiler } from '@strudel/transpiler';
 import { getAudioContext, webaudioOutput, registerSynthSounds } from '@strudel/webaudio';
 import { registerSoundfonts } from '@strudel/soundfonts';
 import { stranger_tune } from './tunes';
+import console_monkey_patch from './console-monkey-patch';
 import ControlPanel from './components/ControlPanel';
 import PreprocessorEditor from './components/PreprocessorEditor';
 import RadioControls from './components/RadioControls';
@@ -19,6 +20,7 @@ import VolumeControl from './components/VolumeControl';
 import ReverbControl from './components/ReverbControl';
 import CrushControl from './components/CrushControl';
 import BeatVisualization from './components/BeatVisualization';
+import PanControl from './components/PanControl';
 
 let globalEditor = null;
 
@@ -39,7 +41,7 @@ const [volume, setVolume] = useState(100);
 // State for Crush.
 const [crush, setCrush] = useState(8);
 
-const [isPlaying, setIsPlaying] = useState(false);
+const [pan, setPan] = useState(50);
 
 
 function Proc() {
@@ -48,12 +50,14 @@ function Proc() {
     let reverbReplace = getReverbValue(reverbSelection);
     let volumeReplace = (volume / 100).toFixed(2);
     let crushReplace = crush;
+    let panReplace = (pan / 100).toFixed(2);
 
     let proc_text_replaced = proc_text
         .replaceAll('<p1_Speed>', speedReplace)
         .replaceAll('<p1_Reverb>', reverbReplace)
         .replaceAll('<p1_Volume>', volumeReplace)
-        .replaceAll('<p1_Crush>', crushReplace);
+        .replaceAll('<p1_Crush>', crushReplace)
+        .replaceAll('<p1_Pan>', panReplace);
 
     globalEditor.setCode(proc_text_replaced)
 }
@@ -86,13 +90,11 @@ function getReverbValue(reverb) {
 function handlePlay() {
     if (globalEditor != null) {
         globalEditor.evaluate();
-        setIsPlaying(true);
     }
 };
 function handleStop() {
     if (globalEditor != null) {
         globalEditor.stop();
-        setIsPlaying(false);
     }
 };
 function handleProcess() {
@@ -104,7 +106,6 @@ function handleProcessAndPlay() {
     if (globalEditor != null) {
         Proc();
         globalEditor.evaluate();
-        setIsPlaying(true);
     }
 };
 
@@ -118,12 +119,14 @@ function handleRadioChange(value) {
         let reverbReplace = getReverbValue(reverbSelection);
         let volumeReplace = (volume / 100).toFixed(2);
         let crushReplace = crush;
+        let panReplace = (pan / 100).toFixed(2);
 
         let proc_text_replaced = proc_text
             .replaceAll('<p1_Speed>', speedReplace)
             .replaceAll('<p1_Reverb>', reverbReplace)
             .replaceAll('<p1_Volume>', volumeReplace)
-            .replaceAll('<p1_Crush>', crushReplace);
+            .replaceAll('<p1_Crush>', crushReplace)
+            .replaceAll('<p1_Pan>', panReplace);
 
         globalEditor.setCode(proc_text_replaced);
         globalEditor.evaluate();
@@ -139,12 +142,14 @@ function handleReverbChange(value) {
         let reverbReplace = getReverbValue(value);
         let volumeReplace = (volume / 100).toFixed(2);
         let crushReplace = crush;
+        let panReplace = (pan / 100).toFixed(2);
 
         let proc_text_replaced = proc_text
             .replaceAll('<p1_Speed>', speedReplace)
             .replaceAll('<p1_Reverb>', reverbReplace)
             .replaceAll('<p1_Volume>', volumeReplace)
-            .replaceAll('<p1_Crush>', crushReplace);
+            .replaceAll('<p1_Crush>', crushReplace)
+            .replaceAll('<p1_Pan>', panReplace);
 
         globalEditor.setCode(proc_text_replaced);
         globalEditor.evaluate();
@@ -160,12 +165,14 @@ function handleVolumeChange(value) {
         let reverbReplace = getReverbValue(reverbSelection);
         let volumeReplace = (value / 100).toFixed(2);
         let crushReplace = crush;
+        let panReplace = (pan / 100).toFixed(2);
 
         let proc_text_replaced = proc_text
             .replaceAll('<p1_Speed>', speedReplace)
             .replaceAll('<p1_Reverb>', reverbReplace)
             .replaceAll('<p1_Volume>', volumeReplace)
-            .replaceAll('<p1_Crush>', crushReplace);
+            .replaceAll('<p1_Crush>', crushReplace)
+            .replaceAll('<p1_Pan>', panReplace);
 
         globalEditor.setCode(proc_text_replaced);
         globalEditor.evaluate();
@@ -181,12 +188,37 @@ function handleCrushChange(value) {
         let reverbReplace = getReverbValue(reverbSelection);
         let volumeReplace = (volume / 100).toFixed(2);
         let crushReplace = value;
+        let panReplace = (pan / 100).toFixed(2);
 
         let proc_text_replaced = proc_text
             .replaceAll('<p1_Speed>', speedReplace)
             .replaceAll('<p1_Reverb>', reverbReplace)
             .replaceAll('<p1_Volume>', volumeReplace)
-            .replaceAll('<p1_Crush>', crushReplace);
+            .replaceAll('<p1_Crush>', crushReplace)
+            .replaceAll('<p1_Pan>', panReplace);
+
+        globalEditor.setCode(proc_text_replaced);
+        globalEditor.evaluate();
+    }
+}
+
+function handlePanChange(value) {
+    setPan(value);
+
+    if (globalEditor != null) {
+        let proc_text = preprocessorText;
+        let speedReplace = getSpeedValue(radioSelection);
+        let reverbReplace = getReverbValue(reverbSelection);
+        let volumeReplace = (volume / 100).toFixed(2);
+        let crushReplace = crush;
+        let panReplace = (value / 100).toFixed(2);
+
+        let proc_text_replaced = proc_text
+            .replaceAll('<p1_Speed>', speedReplace)
+            .replaceAll('<p1_Reverb>', reverbReplace)
+            .replaceAll('<p1_Volume>', volumeReplace)
+            .replaceAll('<p1_Crush>', crushReplace)
+            .replaceAll('<p1_Pan>', panReplace);
 
         globalEditor.setCode(proc_text_replaced);
         globalEditor.evaluate();
@@ -199,7 +231,8 @@ useEffect(() => {
     if (!hasRun.current) {
         hasRun.current = true;
 
-        // Initialize Strudel Editor
+        console_monkey_patch();
+
         globalEditor = new StrudelMirror({
             defaultOutput: webaudioOutput,
             getTime: () => getAudioContext().currentTime,
@@ -265,6 +298,11 @@ return (
                             onVolumeChange={handleVolumeChange}
                         />
 
+                        <PanControl
+                            pan={pan}
+                            onPanChange={handlePanChange}
+                        />
+
                     </div>
                 </div>
                 <div className="col-md-9">
@@ -281,7 +319,7 @@ return (
                             <div className="col-md-4">
                                 <div className="text-center">
 
-                                    <BeatVisualization isPlaying={isPlaying} />
+                                    <BeatVisualization />
                                 </div>
                             </div>
                         </div>

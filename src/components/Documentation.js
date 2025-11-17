@@ -58,20 +58,47 @@ function Documentation() {
                                 <li><strong className="text-danger">High</strong> - Heavy reverb (0.8) - Large cathedral</li>
                             </ul>
 
+                            <h3 className="text-info">Pan Control System</h3>
+                            <p>Control the stereo position of your music with the pan slider:</p>
+                            <ul>
+                                <li><strong className="text-success">Range</strong> - 0 to 100 (0=Left, 50=Center, 100=Right)</li>
+                                <li><strong className="text-info">Default</strong> - 50 (center - both speakers)</li>
+                                <li><strong className="text-warning">Effect</strong> - Moves sound between left and right speakers</li>
+                            </ul>
+
+                            <h2 className="text-warning">Beat Visualization System</h2>
+                            <p>The Beat Visualization displays real-time music data as animated colored bars on the right side of the screen. This visualization uses actual data from your Strudel patterns to create a dynamic visual representation of your music.</p>
+
+                            <h3 className="text-info">How It Works</h3>
+                            <ul>
+                                <li><strong className="text-success">Real-Time Data</strong> - The visualization captures live data from Strudel patterns using the .log() function</li>
+                                <li><strong className="text-warning">Six Colored Bars</strong> - Each bar represents different data points from your music patterns</li>
+                                <li><strong className="text-info">Automatic Updates</strong> - Bars animate automatically when music is playing</li>
+                                <li><strong className="text-danger">Pattern Contribution</strong> - Music patterns with .log() contribute data to the visualization</li>
+                            </ul>
+
+                            <h3 className="text-info">Adding .log() to Your Patterns</h3>
+                            <p>To make your music patterns contribute to the Beat Visualization, add .log() at the end of each pattern:</p>
+                            <pre className="bg-secondary text-white p-3 rounded">note("c3 e3 g3")
+  .sound("sawtooth")
+  .lpf(800)
+  .log()</pre>
+
                             <h2 className="text-warning">Using All Control Placeholders</h2>
-                            <p>You can control Volume, Crush, Reverb, and Speed using special placeholders in your music code. Add these at the end of your stack to let the UI controls change your music in real-time.</p>
+                            <p>You can control Volume, Crush, Reverb, Pan, and Speed using special placeholders in your music code. Add these at the end of your stack to let the UI controls change your music in real-time.</p>
 
                             <h3 className="text-info">Available Control Placeholders</h3>
                             <ul>
                                 <li><strong className="text-success">&lt;p1_Volume&gt;</strong> - Controls volume (0.0 to 1.0). Changes when you move the Volume slider.</li>
                                 <li><strong className="text-danger">&lt;p1_Crush&gt;</strong> - Controls bit crushing effect (1 to 16). Changes when you move the Crush slider.</li>
                                 <li><strong className="text-warning">&lt;p1_Reverb&gt;</strong> - Controls reverb/room effect (0.0 to 0.8). Changes when you select None, Low, Medium, or High reverb.</li>
+                                <li><strong className="text-info">&lt;p1_Pan&gt;</strong> - Controls stereo position (0.0 to 1.0). Changes when you move the Pan slider.</li>
                                 <li><strong className="text-primary">&lt;p1_Speed&gt;</strong> - Controls playback speed (0.5, 1.0, or 2.0). Changes when you select Slow, Normal, or Fast.</li>
                             </ul>
 
                             <h3 className="text-info">How to Use All Controls Together</h3>
-                            <p>At the end of your stack, add this line to connect all four controls:</p>
-                            <pre className="bg-secondary text-white p-3 rounded">.gain(&lt;p1_Volume&gt;).crush(&lt;p1_Crush&gt;).room(&lt;p1_Reverb&gt;).cpm(cpm * &lt;p1_Speed&gt;)</pre>
+                            <p>At the end of your stack, add this line to connect all controls:</p>
+                            <pre className="bg-secondary text-white p-3 rounded">.gain(&lt;p1_Volume&gt;).crush(&lt;p1_Crush&gt;).room(&lt;p1_Reverb&gt;).pan(&lt;p1_Pan&gt;).cpm(cpm * &lt;p1_Speed&gt;)</pre>
 
                             <h3 className="text-warning">Complete Example</h3>
                             <p>Here is a complete example showing how to use all controls:</p>
@@ -86,13 +113,14 @@ stack(
     .sound("sine")
     .pan(0.8)
 
-).gain(&lt;p1_Volume&gt;).crush(&lt;p1_Crush&gt;).room(&lt;p1_Reverb&gt;).cpm(cpm * &lt;p1_Speed&gt;)</pre>
+).gain(&lt;p1_Volume&gt;).crush(&lt;p1_Crush&gt;).room(&lt;p1_Reverb&gt;).pan(&lt;p1_Pan&gt;).cpm(cpm * &lt;p1_Speed&gt;)</pre>
 
                             <h3 className="text-info">What Each Control Does</h3>
                             <ul>
                                 <li><strong>Volume</strong> - Makes your music louder or quieter</li>
                                 <li><strong>Crush</strong> - Adds a digital distortion effect (lower = more distortion)</li>
                                 <li><strong>Reverb</strong> - Adds echo/room effect (None = dry, High = lots of echo)</li>
+                                <li><strong>Pan</strong> - Moves sound between left and right speakers (left/center/right)</li>
                                 <li><strong>Speed</strong> - Makes music play faster or slower</li>
                             </ul>
 
@@ -100,7 +128,7 @@ stack(
                                 <h5 className="text-info">Quick Steps:</h5>
                                 <ol>
                                     <li>Write your music code in the Preprocessor Editor</li>
-                                    <li>Add the control line at the end: <span className="bg-dark text-warning px-2 py-1 rounded">.gain(&lt;p1_Volume&gt;).crush(&lt;p1_Crush&gt;).room(&lt;p1_Reverb&gt;).cpm(cpm * &lt;p1_Speed&gt;)</span></li>
+                                    <li>Add the control line at the end: <span className="bg-dark text-warning px-2 py-1 rounded">.gain(&lt;p1_Volume&gt;).crush(&lt;p1_Crush&gt;).room(&lt;p1_Reverb&gt;).pan(&lt;p1_Pan&gt;).cpm(cpm * &lt;p1_Speed&gt;)</span></li>
                                     <li>Click "Process" to replace placeholders with values</li>
                                     <li>Click "Play" to hear your music</li>
                                     <li>Move the sliders or change settings - the music updates automatically!</li>

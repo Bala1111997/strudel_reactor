@@ -18,6 +18,7 @@ note(\`
   .gain(1.0)
   .delay(sine.range(0,0.75).slow(10))
   .mask("<0!4 1!500>")
+  .log()
 ,
 
 note(\`
@@ -30,6 +31,7 @@ note(\`
   .pan(0.8)
   .mask("<0!8 1!500>")
   .postgain(sine.range(0.6,1.6).slow(24))
+  .log()
 ,
 
 note(\`
@@ -45,6 +47,7 @@ note(\`
   .postgain(sine.range(1,0).slow(24))
   .mask("<0!8 1!500>")
   .pan(0.65)
+  .log()
 ,
 
 note(\`
@@ -58,13 +61,15 @@ note(\`
   .release(0.25)
   .room(0.2)
   .gain(0.3)
+  .log()
 ,
-  
+
 note("c1!4")
   .sound("sawtooth")
   .lpf(120)
   .gain(0.6)
   .room(0.15)
+  .log()
 ,
 
 note("~ c4 ~ [c4 c4] ~ c4 ~ c4")
@@ -72,12 +77,14 @@ note("~ c4 ~ [c4 c4] ~ c4 ~ c4")
   .hpf(800)
   .gain(0.2)
   .crush(5)
+  .log()
 ,
 
 note("~ c2 ~ [c2 ~ ~ c2]")
   .sound("square")
   .lpf(300)
   .gain(0.3)
+  .log()
 ,
 
 note(\`
@@ -93,6 +100,7 @@ note(\`
   .gain(0.4)
   .phaser(4).phasersweep(2000)
   .mask("<0!20 1!12>")
+  .log()
 ,
 
-).gain(<p1_Volume>).crush(<p1_Crush>).room(<p1_Reverb>).cpm(cpm * <p1_Speed>)`;
+).gain(<p1_Volume>).crush(<p1_Crush>).room(<p1_Reverb>).pan(<p1_Pan>).cpm(cpm * <p1_Speed>)`;
