@@ -11,7 +11,7 @@ function Documentation() {
                     <div className="col-md-8">
                         <article className="blog-post text-white">
                             <h2 className="display-5 link-body-emphasis mb-1 text-primary">Getting Started with Strudel</h2>
-                            <p className="blog-post-meta text-secondary">Live Coding Music Interface by <a href="https://htetnaybala.me" className="text-warning">Htet Nay Bala</a></p>
+                            <p className="blog-post-meta text-secondary">Live Coding Music by <a href="https://htetnaybala.me" className="text-warning">Htet Nay Bala</a></p>
                             <p>Welcome to the Strudel Music Player! This is a React-based live coding music application that allows you to create and manipulate music in real-time using the powerful Strudel engine.</p>
                             <hr className="border-secondary" />
                             <p>Our application provides an intuitive interface for music creation with dynamic speed controls, real-time visualization, and instant playback. Perfect for both beginners and advanced users who want to explore algorithmic music composition.</p>
@@ -29,68 +29,86 @@ function Documentation() {
                             <p>Our dynamic speed control system allows real-time tempo manipulation:</p>
                             <ul>
                                 <li><strong className="text-danger">Fast</strong> - Doubles the tempo (2x speed)</li>
-                                <li><strong className="text-success">Normal</strong> - Standard tempo (1x speed)</li>
+                                <li><strong className="text-success">Normal</strong> - Standard tempo (1x speed) - Default</li>
                                 <li><strong className="text-primary">Slow</strong> - Half tempo (0.5x speed)</li>
                             </ul>
-                            
-                            <h2 className="text-warning">Music Code Editor</h2>
-                            <p>The Music Code Editor is where you write your Strudel music code. It supports live coding with syntax highlighting and real-time processing.</p>
-                            
-                            <h3 className="text-info">Dynamic Speed Control Syntax</h3>
-            <p>To control tempo dynamically in your music code, use the special placeholder syntax:</p>
-            <pre className="bg-secondary text-white p-3 rounded">&lt;p1_Speed&gt;</pre>
-            <p>This placeholder gets automatically replaced with the current speed value based on your radio button selection:</p>
-            <ul>
-                <li><span className="bg-secondary text-white px-2 py-1 rounded">&lt;p1_Speed&gt;</span> becomes <strong className="text-danger">2</strong> when <strong className="text-danger">Fast</strong> is selected</li>
-                <li><span className="bg-secondary text-white px-2 py-1 rounded">&lt;p1_Speed&gt;</span> becomes <strong className="text-success">1</strong> when <strong className="text-success">Normal</strong> is selected</li>
-                <li><span className="bg-secondary text-white px-2 py-1 rounded">&lt;p1_Speed&gt;</span> becomes <strong className="text-primary">0.5</strong> when <strong className="text-primary">Slow</strong> is selected</li>
-            </ul>
-            
-            <h3 className="text-info">Example Usage</h3>
-            <p>Here's how you can use the speed control in your Strudel code:</p>
-            <pre className="bg-secondary text-white p-3 rounded">sound("bd hh sd hh").speed(&lt;p1_Speed&gt;)</pre>
-            <p>When you change the speed setting, this automatically becomes:</p>
-            <ul>
-                <li><strong>Fast:</strong> <span className="bg-dark text-success px-2 py-1 rounded">sound("bd hh sd hh").speed(2)</span></li>
-                <li><strong>Normal:</strong> <span className="bg-dark text-success px-2 py-1 rounded">sound("bd hh sd hh").speed(1)</span></li>
-                <li><strong>Slow:</strong> <span className="bg-dark text-success px-2 py-1 rounded">sound("bd hh sd hh").speed(0.5)</span></li>
-            </ul>
-            
-            <h3 className="text-warning">Sample Code Examples</h3>
-            <p>Copy these examples into your Music Code Editor to test speed control:</p>
-            
-            
-                            <pre className="bg-secondary text-white p-3 rounded">var cpm = 40;
 
-note("c3 g3 e3 g3").sound("sawtooth").cpm(cpm * &lt;p1_Speed&gt;)</pre>
-                            
-                            
-                            <pre className="bg-secondary text-white p-3 rounded">var cpm = 25;
+                            <h3 className="text-info">Volume Control System</h3>
+                            <p>Control the overall loudness of your music with the volume slider:</p>
+                            <ul>
+                                <li><strong className="text-success">Range</strong> - 0 to 100 (0% to 100%)</li>
+                                <li><strong className="text-info">Default</strong> - 100 (full volume)</li>
+                                <li><strong className="text-warning">Effect</strong> - Adjusts master output level</li>
+                            </ul>
 
-note("f1 ~ ~ f1 ~ ~ f1 ~").sound("square").lpf(200).cpm(cpm * &lt;p1_Speed&gt;)</pre>
-                            
-                           
-                            <pre className="bg-secondary text-white p-3 rounded">var cpm = 30;
+                            <h3 className="text-info">Crush Control System</h3>
+                            <p>Add digital distortion effect to your music with the crush slider:</p>
+                            <ul>
+                                <li><strong className="text-danger">Range</strong> - 1 to 16 (bit depth)</li>
+                                <li><strong className="text-info">Default</strong> - 8 (moderate distortion)</li>
+                                <li><strong className="text-warning">Effect</strong> - Lower values create more distortion, higher values sound cleaner</li>
+                            </ul>
+
+                            <h3 className="text-info">Reverb Control System</h3>
+                            <p>Add room echo effect to your music with reverb settings:</p>
+                            <ul>
+                                <li><strong className="text-primary">None</strong> - No reverb (0.0) - Dry sound</li>
+                                <li><strong className="text-success">Low</strong> - Light reverb (0.3) - Small room - Default</li>
+                                <li><strong className="text-warning">Medium</strong> - Moderate reverb (0.5) - Medium hall</li>
+                                <li><strong className="text-danger">High</strong> - Heavy reverb (0.8) - Large cathedral</li>
+                            </ul>
+
+                            <h2 className="text-warning">Using All Control Placeholders</h2>
+                            <p>You can control Volume, Crush, Reverb, and Speed using special placeholders in your music code. Add these at the end of your stack to let the UI controls change your music in real-time.</p>
+
+                            <h3 className="text-info">Available Control Placeholders</h3>
+                            <ul>
+                                <li><strong className="text-success">&lt;p1_Volume&gt;</strong> - Controls volume (0.0 to 1.0). Changes when you move the Volume slider.</li>
+                                <li><strong className="text-danger">&lt;p1_Crush&gt;</strong> - Controls bit crushing effect (1 to 16). Changes when you move the Crush slider.</li>
+                                <li><strong className="text-warning">&lt;p1_Reverb&gt;</strong> - Controls reverb/room effect (0.0 to 0.8). Changes when you select None, Low, Medium, or High reverb.</li>
+                                <li><strong className="text-primary">&lt;p1_Speed&gt;</strong> - Controls playback speed (0.5, 1.0, or 2.0). Changes when you select Slow, Normal, or Fast.</li>
+                            </ul>
+
+                            <h3 className="text-info">How to Use All Controls Together</h3>
+                            <p>At the end of your stack, add this line to connect all four controls:</p>
+                            <pre className="bg-secondary text-white p-3 rounded">.gain(&lt;p1_Volume&gt;).crush(&lt;p1_Crush&gt;).room(&lt;p1_Reverb&gt;).cpm(cpm * &lt;p1_Speed&gt;)</pre>
+
+                            <h3 className="text-warning">Complete Example</h3>
+                            <p>Here is a complete example showing how to use all controls:</p>
+                            <pre className="bg-secondary text-white p-3 rounded">var cpm = 28;
 
 stack(
-  note("c3 e3 g3 c4").sound("sawtooth"),
-  note("f5").sound("sine")
-).cpm(cpm * &lt;p1_Speed&gt;)</pre>
-                            
-                            
-                            <pre className="bg-secondary text-white p-3 rounded">var cpm = 35;
+  note("c3 e3 g3")
+    .sound("sawtooth")
+    .lpf(800),
 
-note("c5 f4 bb4 ab4").sound("triangle").cpm(cpm * &lt;p1_Speed&gt;)</pre>
+  note("c5")
+    .sound("sine")
+    .pan(0.8)
+
+).gain(&lt;p1_Volume&gt;).crush(&lt;p1_Crush&gt;).room(&lt;p1_Reverb&gt;).cpm(cpm * &lt;p1_Speed&gt;)</pre>
+
+                            <h3 className="text-info">What Each Control Does</h3>
+                            <ul>
+                                <li><strong>Volume</strong> - Makes your music louder or quieter</li>
+                                <li><strong>Crush</strong> - Adds a digital distortion effect (lower = more distortion)</li>
+                                <li><strong>Reverb</strong> - Adds echo/room effect (None = dry, High = lots of echo)</li>
+                                <li><strong>Speed</strong> - Makes music play faster or slower</li>
+                            </ul>
 
                             <div className="alert alert-info mt-4 p-3 rounded border border-info">
-                                <h5 className="text-info">How to Use Speed Control:</h5>
-                                <p>To make speed control work, use <span className="bg-secondary text-warning px-2 py-1 rounded">.cpm(cpm * &lt;p1_Speed&gt;)</span> at the end of your patterns. The app will automatically replace <span className="bg-secondary text-warning px-2 py-1 rounded">&lt;p1_Speed&gt;</span> with the selected speed value (Fast=2, Normal=1, Slow=0.5).</p>
+                                <h5 className="text-info">Quick Steps:</h5>
+                                <ol>
+                                    <li>Write your music code in the Preprocessor Editor</li>
+                                    <li>Add the control line at the end: <span className="bg-dark text-warning px-2 py-1 rounded">.gain(&lt;p1_Volume&gt;).crush(&lt;p1_Crush&gt;).room(&lt;p1_Reverb&gt;).cpm(cpm * &lt;p1_Speed&gt;)</span></li>
+                                    <li>Click "Process" to replace placeholders with values</li>
+                                    <li>Click "Play" to hear your music</li>
+                                    <li>Move the sliders or change settings - the music updates automatically!</li>
+                                </ol>
                             </div>
                         </article>
                         
-                        <article className="blog-post text-white mt-5">
-                            <h2 className="display-5 link-body-emphasis mb-1 text-primary">Quick Start Guide</h2>
-                        </article>
+                        
                     </div>
                 </div>
             </main>
