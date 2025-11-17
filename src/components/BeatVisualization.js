@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 
-function BeatVisualization() {
+function BeatVisualization({ isPlaying }) {
     const svgRef = useRef();
 
     useEffect(() => {
@@ -11,7 +11,7 @@ function BeatVisualization() {
         // Background
         svg.append("rect")
             .attr("width", 400)
-            .attr("height", 200)
+            .attr("height", 550)
             .attr("fill", "#1a1a1a")
             .attr("stroke", "#4a90e2")
             .attr("stroke-width", 2)
@@ -24,31 +24,33 @@ function BeatVisualization() {
             svg.append("rect")
                 .attr("class", `bar-${i}`)
                 .attr("x", 30 + i * 60)
-                .attr("y", 180)
+                .attr("y", 530)
                 .attr("width", 40)
                 .attr("height", 0)
                 .attr("fill", color)
                 .attr("rx", 4);
         });
 
-        
+
         let counter = 0;
 
         const interval = setInterval(() => {
-            counter += 1;
+            if (isPlaying) {
+                counter += 1;
 
-            colors.forEach((color, i) => {
-                const time = counter + i * 10;
-                const height = Math.abs(Math.sin(time / 5)) * 120 + 20;
+                colors.forEach((color, i) => {
+                    const time = counter + i * 10;
+                    const height = Math.abs(Math.sin(time / 5)) * 470 + 20;
 
-                svg.select(`.bar-${i}`)
-                    .attr("y", 180 - height)
-                    .attr("height", height);
-            });
+                    svg.select(`.bar-${i}`)
+                        .attr("y", 530 - height)
+                        .attr("height", height);
+                });
+            }
         }, 50);
 
         return () => clearInterval(interval);
-    }, []);
+    }, [isPlaying]);
 
     return (
         <div className="d3-visualization">
@@ -56,7 +58,7 @@ function BeatVisualization() {
                 <i className="fas fa-terminal me-2 text-success"></i>
                     Beat Visualization
             </h5>
-            <svg ref={svgRef} width="400" height="200"></svg>
+            <svg ref={svgRef} width="400" height="550"></svg>
         </div>
     );
 }

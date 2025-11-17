@@ -15,7 +15,7 @@ import StrudelEditor from './components/StrudelEditor';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import VolumeControl from './components/VolumeControl';
-import Mp3 from './components/Mp3';
+
 import ReverbControl from './components/ReverbControl';
 import CrushControl from './components/CrushControl';
 import BeatVisualization from './components/BeatVisualization';
@@ -38,6 +38,8 @@ const [volume, setVolume] = useState(100);
 
 // State for Crush.
 const [crush, setCrush] = useState(8);
+
+const [isPlaying, setIsPlaying] = useState(false);
 
 
 function Proc() {
@@ -84,11 +86,13 @@ function getReverbValue(reverb) {
 function handlePlay() {
     if (globalEditor != null) {
         globalEditor.evaluate();
+        setIsPlaying(true);
     }
 };
 function handleStop() {
     if (globalEditor != null) {
         globalEditor.stop();
+        setIsPlaying(false);
     }
 };
 function handleProcess() {
@@ -100,6 +104,7 @@ function handleProcessAndPlay() {
     if (globalEditor != null) {
         Proc();
         globalEditor.evaluate();
+        setIsPlaying(true);
     }
 };
 
@@ -228,16 +233,14 @@ return (
             <div className="row g-4">
                 <div className="col-md-3" style={{marginTop: "4rem"}}>
                     <div className="d-flex flex-column gap-4">
-                        
-                        <Mp3 />
-                        
-                        <ControlPanel 
-                            onPlay={handlePlay} 
-                            onStop={handleStop}  
-                            onProcess={handleProcess} 
-                            onProcessAndPlay={handleProcessAndPlay} 
+
+                        <ControlPanel
+                            onPlay={handlePlay}
+                            onStop={handleStop}
+                            onProcess={handleProcess}
+                            onProcessAndPlay={handleProcessAndPlay}
                         />
-                        
+
                         <RadioControls
                             selectedOption={radioSelection}
                             onRadioChange={handleRadioChange}
@@ -278,7 +281,7 @@ return (
                             <div className="col-md-4">
                                 <div className="text-center">
 
-                                    <BeatVisualization />
+                                    <BeatVisualization isPlaying={isPlaying} />
                                 </div>
                             </div>
                         </div>
