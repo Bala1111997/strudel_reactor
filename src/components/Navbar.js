@@ -13,7 +13,7 @@ function Navbar() {
                         🎺 𝒮𝓉𝓇𝓊𝒹𝑒𝓁 𝑀𝓊𝓈𝒾𝒸 𝒫𝓁𝒶𝓎𝑒𝓇 🎺
                     </h3>
 
-                    // Navigation links.
+                    {/* Navigation links. */}
                     <ul class="nav nav-pills"> 
                         <li class="nav-item">
                             <Link to="/" class="nav-link active fs-5 fw-semibold">

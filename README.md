@@ -1,70 +1,63 @@
-# Getting Started with Create React App
+# Strudel Music Player
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A React-based live coding music application using the Strudel engine.
 
-## Available Scripts
+## Controls
 
-In the project directory, you can run:
+**Play Button** - Starts the music with the current code.
 
-### `npm start`
+**Stop Button** - Stops all music playback.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+**Process Button** - Replaces placeholders in your code with control values.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+**Process & Play Button** - Process and play in one click.
 
-### `npm test`
+**Speed Control** - Radio buttons to change tempo:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Fast: 2x speed
+- Normal: 1x speed (default)
+- Slow: 0.5x speed
 
-### `npm run build`
+**Volume Control** - Slider to adjust master volume (0-100, default: 100).
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**Crush Control** - Slider for bit crushing effect (1-16, default: 8). Lower = more distortion.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+**Reverb Control** - Radio buttons for room echo:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- None: No reverb
+- Low: Light echo (default)
+- Medium: Medium echo
+- High: Heavy echo
 
-### `npm run eject`
+**Pan Control** - Slider for stereo position (0-100, default: 50). 0=left, 50=center, 100=right.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+**Beat Visualization** - D3 graph showing real-time music data from Strudel .log() patterns.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## How to Use
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+1. Edit music code in the Preprocessor Editor
+2. Click "Process" to replace placeholders with control values
+3. Click "Play" to hear your music
+4. Adjust controls - music updates automatically in real-time
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Usage Notes
 
-## Learn More
+- The Beat Visualization uses real data from Strudel .log() patterns
+- Controls update automatically when you move sliders or change settings
+- Preprocessor uses placeholders: `<p1_Volume>`, `<p1_Crush>`, `<p1_Reverb>`, `<p1_Pan>`, `<p1_Speed>`
+- **Full documentation available in the app** - Navigate to the Documentation page for detailed explanations of all features and controls
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Video Demonstration
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+[Video Link - Add your video URL here]
 
-### Code Splitting
+## Song Attribution
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Music pattern "stranger_tune" is inspired by Stranger Things theme.
 
-### Analyzing the Bundle Size
+## Setup
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```bash
+npm install
+npm start
+```
