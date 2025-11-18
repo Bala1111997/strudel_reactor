@@ -49,11 +49,7 @@ A React-based live coding music application using the Strudel engine.
 
 ## Video Demonstration
 
-[Video Link - Add your video URL here]
-
-## Song Attribution
-
-Music pattern "stranger_tune" is inspired by Stranger Things theme.
+[https://youtu.be/fNgcOGgQxA8](https://youtu.be/fNgcOGgQxA8)
 
 ## Setup
 
